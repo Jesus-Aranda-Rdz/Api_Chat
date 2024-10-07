@@ -66,7 +66,7 @@
    node ace migration:run
    ```
 
-   1. **Ejecuta los seeders** :
+   **Ejecuta los seeders** :
 
    ```bash
    node ace db:seed
