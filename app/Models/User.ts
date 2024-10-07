@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
-import Hash from '@ioc:Adonis/Core/Hash'
 import { column, beforeSave, BaseModel } from '@ioc:Adonis/Lucid/Orm'
+import HashGenerator from 'App/Services/HashGenerator '
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -29,8 +29,9 @@ export default class User extends BaseModel {
 
   @beforeSave()
   public static async hashPassword (user: User) {
+    const hashGenerator = new HashGenerator();
     if (user.$dirty.password) {
-      user.password = await Hash.make(user.password)
+      user.password = await hashGenerator.methodHash(user.password)
     }
   }
 }
