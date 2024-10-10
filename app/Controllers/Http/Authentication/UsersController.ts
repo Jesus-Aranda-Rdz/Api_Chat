@@ -4,6 +4,7 @@ import { badRequest, ok, notFound } from "App/Services/ResponseHandler";
 import StoreValidator from "App/Validators/Authentication/User/StoreValidator";
 import UpdateValidator from "App/Validators/Authentication/User/UpdateValidator";
 
+
 export default class UsersController {
     public async index({ response }: HttpContextContract) {
         try {
@@ -40,9 +41,18 @@ export default class UsersController {
 
     public async store({ request, response }: HttpContextContract) {
         const playload = await request.validate(StoreValidator);
+        const data={
+            email:playload.email,
+            password:playload.password,
+            name:playload.name,
+            img:playload.img,
+            phone:playload.phone,
+            birthdate:new Date(playload.birthdate.toString()),
+            description:playload.description
+        }
         try {
             // Create a new user
-            const user = await User.create(playload);
+            const user = await User.create(data);
             // Return the user
             return ok(response, "Usuario creado", user);
         } catch (error) {

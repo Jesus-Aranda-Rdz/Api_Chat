@@ -19,16 +19,16 @@ export default class StoreValidator {
       rules.minLength(3),
       rules.maxLength(255)
     ]),
-    img: schema.string.optional({}, [
+    img: schema.string({}, [
       rules.regex(new RegExp('^(http(s?):)([/|.|\\w|\\s|-])*\\.(?:jpg|gif|png)$'))
     ]),
-    phone: schema.string.optional({}, [
+    phone: schema.string({}, [
       rules.maxLength(10),
       rules.minLength(10),
       rules.regex(new RegExp('^[0-9]+$'))
     ]),
     birthdate: schema.date(),
-    description: schema.string.optional({}, [
+    description: schema.string({}, [
       rules.maxLength(255)
     ])
   })
