@@ -56,4 +56,18 @@ export default class AuthController {
             return badRequest(response, errorMsg);
         }
     }
+
+    public async profile({ auth, response }: HttpContextContract) {
+        try {
+            // Get the user
+            const user = await auth.authenticate();
+            // Return the user
+            return ok(response, "Usuario encontrado", user);
+        } catch (error) {
+            // Get the error message
+            const errorMsg = error.message || 'Error al obtener el usuario';
+            // Return the error response
+            return badRequest(response, errorMsg);
+        }
+    }
 }
